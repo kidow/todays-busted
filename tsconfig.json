@@ -14,7 +14,13 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@types/node", "@nuxt/types", "@nuxt/vue-app", "@nuxtjs/axios"]
+    "types": [
+      "@types/node",
+      "@nuxt/types",
+      "@nuxt/vue-app",
+      "@nuxtjs/axios",
+      "@nuxtjs/moment"
+    ]
   },
   "exclude": ["node_modules"],
   "files": ["./vue-shim.d.ts"]

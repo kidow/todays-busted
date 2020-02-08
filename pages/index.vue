@@ -1,72 +1,68 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        todays-busted
-      </h1>
-      <h2 class="subtitle">
-        This project show today&#39;s busted news.
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+  <div>
+    <h1 class="title">오늘의 적발</h1>
+    <div>{{ $route.path }}</div>
   </div>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
+<script lang="ts">
+import Vue from 'vue'
 
-export default {
-  components: {
-    Logo
-  }
+interface INews {
+  title: string
+  originallink: string
+  link: string
+  description: string
+  pubDate: Date
 }
+
+interface IData {
+  lastBuildDate: Date
+  total: number
+  start: number
+  display: number
+  items: INews[]
+}
+
+export default Vue.extend({
+  name: 'VueIndexPage',
+  async asyncData({ app, env }) {
+    try {
+      const payload = await app.$axios({
+        url: 'https://openapi.naver.com/v1/search/news.json',
+        params: { query: '적발', sort: 'date', display: 100 },
+        headers: {
+          'X-Naver-Client-Id': env.CLIENT_ID,
+          'X-Naver-Client-Secret': env.CLIENT_SECRET
+        }
+      })
+      const data: IData = payload.data
+      const news = data.items.filter(
+        item =>
+          item.title.indexOf('적발') > -1 &&
+          app
+            .$moment(
+              app
+                .$moment()
+                .add(-1, 'days')
+                .format('YYYY-MM-DD')
+            )
+            .isSame(app.$moment(item.pubDate).format('YYYY-MM-DD'))
+      )
+      console.log(news)
+      return { news }
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  data: () => ({
+    news: []
+  })
+})
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
+<style lang="scss" scoped>
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+  padding-top: 4rem;
 }
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
+</style>  
