@@ -1,4 +1,6 @@
-export default {
+import { Configuration } from '@nuxt/types'
+
+const config: Configuration = {
   mode: 'spa',
   head: {
     title: process.env.npm_package_name || '',
@@ -15,7 +17,7 @@ export default {
   },
   loading: { color: '#fff' },
   css: ['element-ui/lib/theme-chalk/index.css'],
-  plugins: ['@/plugins/element-ui'],
+  plugins: ['@/plugins/element-ui.ts', '@/plugins/axios.ts'],
   buildModules: ['@nuxt/typescript-build'],
   modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
   axios: {},
@@ -24,3 +26,5 @@ export default {
     extend(config, ctx) {}
   }
 }
+
+export default config
