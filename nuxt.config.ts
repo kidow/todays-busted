@@ -3,10 +3,10 @@ import { Configuration } from '@nuxt/types'
 
 const TITLE: string = '오늘의 적발'
 const DESCRIPTION: string = '당일 적발된 기사를 알려주는 프로젝트입니다.'
-const PUBLIC_LINK: string = ''
-
-const CLIENT_ID = process.env.CLIENT_ID || ''
-const CLIENT_SECRET = process.env.CLIENT_SECRET || ''
+const BASE_URL: string =
+  process.env.NODE_ENV === 'production'
+    ? 'https://todays-busted.kidow.now.sh'
+    : 'http://localhost:3000'
 
 const config: Configuration = {
   mode: 'universal',
@@ -45,8 +45,9 @@ const config: Configuration = {
     locales: ['ko']
   },
   env: {
-    CLIENT_ID,
-    CLIENT_SECRET
+    CLIENT_ID: process.env.CLIENT_ID || '',
+    CLIENT_SECRET: process.env.CLIENT_SECRET || '',
+    BASE_URL
   },
   axios: {},
   build: {
