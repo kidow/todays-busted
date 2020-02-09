@@ -5,30 +5,38 @@
   "author": "kidow",
   "private": true,
   "scripts": {
-    "dev": "nuxt-ts",
-    "build": "nuxt-ts build",
-    "generate": "nuxt-ts generate",
-    "start": "nuxt-ts start"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "start": "nuxt start",
+    "deploy": "firebase deploy && rm -rf ./public"
   },
   "dependencies": {
     "@nuxt/types": "^0.6.1",
+    "@nuxt/typescript-build": "^0.5.6",
     "@nuxt/typescript-runtime": "^0.3.8",
     "@nuxt/vue-app": "^2.11.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/moment": "^1.5.0",
-    "@nuxtjs/now-builder": "^0.17.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/style-resources": "^1.0.0",
     "dotenv": "^8.2.0",
     "element-ui": "^2.4.11",
+    "express": "^4.17.1",
+    "firebase": "^7.8.1",
+    "firebase-admin": "^8.9.2",
+    "firebase-functions": "^3.3.0",
     "moment": "^2.24.0",
     "nuxt": "^2.11.0",
     "open-color": "^1.7.0"
   },
   "devDependencies": {
-    "@nuxt/typescript-build": "^0.5.6",
+    "firebase-functions-test": "^0.1.7",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2"
+  },
+  "engines": {
+    "node": "8"
   }
 }

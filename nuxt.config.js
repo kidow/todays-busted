@@ -1,14 +1,12 @@
-import 'dotenv/config'
-import { Configuration } from '@nuxt/types'
-
-const TITLE: string = '오늘의 적발'
-const DESCRIPTION: string = '당일 적발된 기사를 알려주는 프로젝트입니다.'
-const BASE_URL: string =
+require('dotenv').config()
+const TITLE = '오늘의 적발'
+const DESCRIPTION = '당일 적발된 기사를 알려주는 프로젝트입니다.'
+const BASE_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://todays-busted.kidow.now.sh'
+    ? 'https://todays-busted.firebaseapp.com/'
     : 'http://localhost:3000'
 
-const config: Configuration = {
+module.exports = {
   mode: 'universal',
   head: {
     title: TITLE,
@@ -55,5 +53,3 @@ const config: Configuration = {
     extend(config, ctx) {}
   }
 }
-
-export default config

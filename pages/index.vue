@@ -37,6 +37,7 @@ export default Vue.extend({
   name: 'VueIndexPage',
   async asyncData({ app, env }) {
     try {
+      console.log('before fetched')
       const payload = await app.$axios({
         url: 'https://openapi.naver.com/v1/search/news.json',
         params: { query: '적발', sort: 'date', display: 100 },
@@ -58,7 +59,7 @@ export default Vue.extend({
             .$moment(app.$moment().format('YYYY-MM-DD'))
             .isSame(app.$moment(item.pubDate).format('YYYY-MM-DD'))
       )
-      console.log(news)
+      console.log('news', news)
       return { news }
     } catch (err) {
       console.log(err)
@@ -68,6 +69,9 @@ export default Vue.extend({
     return {
       news: []
     }
+  },
+  mounted() {
+    console.log('this.news: ', this.news)
   }
 })
 </script>
