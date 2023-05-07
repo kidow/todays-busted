@@ -28,7 +28,7 @@
     "firebase-admin": "^8.9.2",
     "firebase-functions": "^3.3.0",
     "moment": "^2.24.0",
-    "nuxt": "^2.11.0",
+    "nuxt": "^2.16.3",
     "open-color": "^1.7.0"
   },
   "devDependencies": {
